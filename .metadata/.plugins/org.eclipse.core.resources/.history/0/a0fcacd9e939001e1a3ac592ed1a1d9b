@@ -1,0 +1,33 @@
+package APIautomation;
+
+import io.restassured.RestAssured;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+import Files.Payloadstore;
+
+public class Basics {
+
+	public static void main(String[] args) {
+		
+		//Validate if add place api is working as expected
+		//Given > all the input detail required to submit api
+		//When > Submit api detail (Resource and http method)
+		//and Then > Validate the responce
+		
+	RestAssured.baseURI = "https://rahulshettyacademy.com";
+	String AddplaceResponce = given().log().all().queryParam("key", "qaclick123").header("Content-Type","application/json")
+	.body(Payloadstore.AddPlacebody())
+	.when().post("maps/api/place/add/json")
+	.then().log().all().assertThat().statusCode(200).body("scope", equalTo("APP")).header("server","Apache/2.4.52 (Ubuntu)").extract().response().toString();
+	
+	
+	//Add place --> Update place with neww address -> Get place to validate if new address is present in responce
+		
+	
+	System.out.println(AddplaceResponce);
+		
+	}
+	
+	
+}
