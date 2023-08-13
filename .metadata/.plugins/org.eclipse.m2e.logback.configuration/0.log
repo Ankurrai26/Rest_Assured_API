@@ -599,3 +599,4 @@
 2023-08-13 22:09:47,706 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\ankur\eclipse-workspace\API\RestAPIAutomationProject\src\main\resources
 2023-08-13 22:09:47,708 [Worker-26: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
 2023-08-13 22:09:47,710 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\ankur\eclipse-workspace\API\RestAPIAutomationProject\src\test\resources
+2023-08-14 00:12:36,304 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
