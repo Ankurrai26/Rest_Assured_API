@@ -7,30 +7,41 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.assertEquals;
 
-import Files.Payloadstore;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import UtilityPackage.*;
+import files.Payloadstore;
 
 public class Basics {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
 
 		// Validate if add place api is working as expected
 		// Given > all the input detail required to submit api
 		// When > Submit api detail (Resource and http method)
 		// and Then > Validate the responce
+		//Content of the file to String - > Content of file can covert into Byte -> Byte data to String
+		
+		
 
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
 
+	//String AddPlaceBody = new String (Files.readAllBytes(Paths.get("C:\\Users\\ankur\\eclipse-workspace\\API\\RestAPIAutomationProject\\addplace.json")));
+		
+		String AddPlaceBody = new String(Files.readAllBytes(Paths.get("C:\\\\Users\\\\ankur\\\\eclipse-workspace\\\\API\\\\RestAPIAutomationProject\\\\addplace.json")));
+		
 		String AddplaceResponce = given().queryParam("key", "qaclick123").header("Content-Type", "application/json")
-				.body(Payloadstore.AddPlacebody()).when().post("maps/api/place/add/json").then().assertThat()
+				.body(AddPlaceBody).when().post("maps/api/place/add/json").then().assertThat()
 				.statusCode(200).body("scope", equalTo("APP")).header("server", "Apache/2.4.52 (Ubuntu)").extract()
 				.response().asString();
 
 		// Add place --> Update place with neww address -> Get place to validate if new
 		// address is present in responce
 
-		JsonPath js = new JsonPath(AddplaceResponce); // Class to parse string into actual json and parsed value can be
-														// fetch from the js.
-
+		JsonPath js= Utility.StringToJson(AddplaceResponce);	 // Class to parse string into actual json and parsed value can be
+											// fetch from the js.
 		String Place_id = js.getString("place_id");
 		System.out.println(Place_id);
 
@@ -56,7 +67,9 @@ public class Basics {
 		System.out.println(ReplacedAddress);
 
 		
-		  JsonPath js1 = new JsonPath(ReplacedAddress); String expectedaddress =
+		  
+		  JsonPath js1= Utility.StringToJson(ReplacedAddress);
+		  String expectedaddress =
 		  js1.getString("address"); System.out.println("Updated address " +
 		  expectedaddress);
 		 
